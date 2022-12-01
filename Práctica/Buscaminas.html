@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="buscaminas.css">
+        <script>
+            function crearTablero(){
+                let dificultad = saberDificultad();
+                let tamaño = tamañoTablero();
+                pintarTablero(tamaño);
+                let tablero=crearMatriz(tamaño,dificultad);
+                console.log(tablero);
+            }
+            function tamañoTablero(){
+                let tamaño=document.getElementById("tamaño").value;
+                return tamaño;
+            }
+            function saberDificultad(){
+                let dificultad = document.getElementById("dificultad").value;
+                switch(dificultad){
+                    case "Fácil":
+                        return 1;
+                    case "Medio":
+                        return 2;
+                    case "Difícil":
+                        return 3;
+                    case "Dios del Olimpo":
+                        return 4;
+                }
+            }
+            function crearBombas(dificultad){
+                let probabilidad= Math.random()*100;
+                if(probabilidad<Number(dificultad+1)*5){
+                    return true;
+                }
+                return false;
+            }
+            function pintarTablero(tamaño){
+                let pantalla="";
+                for(let i=0;i<tamaño;i++){
+                    pantalla+="<tr>";
+                    for(let j=0;j<tamaño;j++){
+                        pantalla+="<td></td>";
+                    }
+                    pantalla+="</tr>";
+                }
+                document.getElementById("tablero").innerHTML=pantalla;
+            }
+            function crearMatriz(tamaño,dificultad){
+                let tablero=new Array(Number(tamaño));
+                for (let i = 0;i<tablero.length; i++) {
+                    tablero[i]=new Array(Number(tamaño));
+                }
+                
+                for(let i=0;i<tamaño;i++){
+                    for(let j=0;j<tamaño;j++){
+                        if(crearBombas(dificultad))tablero[i][j]="x";
+                        else tablero[i][j]=cambiarMatriz(tablero,i,j);
+                    }
+                }
+                return tablero;
+            }
+            function cambiarMatriz(matriz,fila,columna){
+                let cont=0;
+                for(let i=1,x;i>=-1;i--){
+                    x=Number(fila+i);
+                    for(let j=1,y;j>=-1;j--){
+                        y=Number(columna+j);
+                        if(x>0&&x<matriz.length&&y>0&&y<matriz.length)if(matriz[x][y]=="x")cont++;
+                        
+                    }
+                }
+                return cont;
+            }
+        </script>
+    </head>
+    <body align="center">
+        <select id="dificultad" value="">
+            <option>Fácil</option>
+            <option>Medio</option>
+            <option>Difícil</option>
+            <option>Dios del Olimpo</option>
+          </select>
+          Selecciona el tamaño del tablero <input id="tamaño" type="number" min="0">
+          <button onclick="crearTablero()">Crear Tablero</button>
+          <br><br><br>
+        <table align="center" id="tablero">
+        </table>
+    </body>
+</html>

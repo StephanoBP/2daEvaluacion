@@ -1,0 +1,20 @@
+button{
+    cursor:pointer;
+}
+#tablero{
+    border: 1px solid black;
+    background-color: blueviolet;
+    empty-cells: show;
+}
+tr{
+    border: 1px solid black;
+}
+td:hover{
+    background-color: aquamarine;
+}
+td{
+    width: 10px;
+    height: 10px;
+    background-color: grey;
+    padding: 30px;
+}
