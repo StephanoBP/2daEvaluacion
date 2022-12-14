@@ -1,20 +1,22 @@
-button{
-    cursor:pointer;
-}
 #tablero{
     border: 1px solid black;
     background-color: blueviolet;
     empty-cells: show;
-}
-tr{
-    border: 1px solid black;
+    text-align: center;
+    color: rebeccapurple;
 }
 td:hover{
     background-color: aquamarine;
+    cursor: pointer;
 }
 td{
-    width: 10px;
-    height: 10px;
+    width: 70px;
+    height: 70px;
+    font-size: 25px;
+}
+.noVisitado{
     background-color: grey;
-    padding: 30px;
+}
+.visitado{
+    background-color: seashell;
 }

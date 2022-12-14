@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            .rojo{
+                background-color: red;
+            }
+            #xl{
+                font-size: 50px;
+            }
+        </style>
+        <script>
+            function cantidadHijos(){
+                hijos = document.getElementById("div1").childElementCount;
+                alert("hay "+ hijos+" hijos con el tag name "+ document.getElementById("div1").firstElementChild.tagName);
+            }
+            function agregarPunto(){
+                padre=document.getElementById("div2");
+                for(let hijo of padre.childNodes){
+                    if(hijo.tagName=="P"){
+                        hijo.textContent +=".";
+                    }
+                }
+            }
+            let contColor=0;
+            function cambiarColor(){
+                padre=document.body;
+                for(let hijo of padre.childNodes){
+                    if(hijo.tagName=="H1"&&hijo.textContent=="Este es un título dinámico"){
+                        if(contColor==0){
+                            hijo.setAttribute("class","rojo");
+                            contColor++;
+                        }else{
+                            hijo.setAttribute("class","");
+                            contColor--;
+                        }    
+                    }
+                }
+            }
+            let contTamaño=0;
+            function cambiarTamaño(){
+                padre=document.body;
+                for(let hijo of padre.childNodes){
+                    if(hijo.tagName=="H1"&&hijo.textContent=="Este es un título dinámico"){
+                        if(contTamaño==0){
+                            hijo.setAttribute("id","xl");
+                            contTamaño++;
+                        }else{
+                            hijo.setAttribute("id","");
+                            contTamaño--;
+                        }
+                    }
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+        <div id="div1">
+            <p>Este es el primer párrafo</p>
+            <p>Este es el segundo párrafo</p>
+            <p>Este es el tercer párrafo</p>
+        </div>
+        <button onclick="cantidadHijos()">Cantidad de hijos del DIV</button>
+        <div id="div2">
+            <p>Este es el primer párrafo</p>
+            <p>Este es el segundo párrafo</p>
+            <p>Este es el tercer párrafo</p>
+        </div>
+        <button onclick="agregarPunto()">Agregar un punto al final de cada párrafo</button>
+        <h1>Este es un título dinámico</h1>
+        <button onclick="cambiarColor()">Cambiar Color</button>
+        <button onclick="cambiarTamaño()">Cambiar Tamaño Fuente</button>
+    </body>
+</html>
