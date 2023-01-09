@@ -1,112 +1,114 @@
 <!DOCTYPE html>
-<head>
-    <title>Formularios</title>
-    <style>
-        body{
-            justify-content: center;
-            display: flex;
-            align-items: center;
-        }
-        tbody{
-            border: crimson 1px solid;
-            display: block;
-            border-collapse: separate;
-            border-spacing: 4px; 
-        }
-        th{
-            text-align:center;
-            font-size: 40px;
-        }
-        tfoot tr td{
-            text-align: center;
-        }
-    </style>
-    <script>
-        //3 Formas de llamar formularios
-        let formulario= document.getElementById('miFormulario');
-        let formulario2 = document.forms['miFormulario'];//array
-        let formulario3= document.getElementsByTagName('form')[0];//array
-        let formulario4= document.forms[0]
-        //¿Como seleccionar elementos?
-        //.element()
-        document.getElementById('nombre')//elemento con ese id
-        document.getElementsByTagName('input')//array con el elemento con esa etiqueta
-
-        function iniciar(){
-            document.getElementById('enviar').addEventListener("click",validar(),false);
-        }
-        function validaNombre(){
-            let elemento= document.getElementById('nombre')
-            return (elemento.value=="");
-        }
-        function validaTelefono(){
-            let elemento= document.getElementById('telefono')
-            return (!isNaN(elemento.value))
-        }
-        function validaFecha(){
-            let dia = document.getElementById('dia').value
-            let mes = document.getElementById('mes').value
-            let anio = document.getElementById('anio').value
-
-            let fecha = new Date(year,mes,dia);
-            return(!isNaN(fecha));
-        }
-
-        function validaCheck(){
-            return (document.getElementById('mayor').checked);
-        }
-        function validaSexo(){
-            elementos = document.getElementsByName("sexo");
-            for(let i=0;i<elementos.length;i++){
-                if(elementos[i].checked)return elementos[i].value;
+<html>
+    <head>
+        <title>Formularios</title>
+        <style>
+            body{
+                justify-content: center;
+                display: flex;
+                align-items: center;
             }
-        }
-        function validar(){
-            return(validaNombre()&&validaFecha()&&validaTelefono()&&validaSexo()&&validaCheck()&&confirm())
-        }
-    </script>
-</head>
-<body>
-    <form method="post" id="miFormulario"> <!-- action="procesar.php"-->
-        <table>
-            <thead>
-                    <th>Formulario</th>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Nombre</td>
-                    <td><input type="text" name="nombre" id="nombre"></td>
-                </tr>
-                <tr>
-                    <td>Telefono</td>
-                    <td><input type="text" name="telefono" id="telefono"></td>
-                </tr>
-                <tr>
-                    <td> Sexo</td>
-                    <td> <input type="radio" name="sexo" value="H" checked> Hombre
-                        <input type="radio" name="sexo" value="M"> Mujer </td>
-                </tr>
-                <tr>
-                    <td>Mayor de 18: </td>
-                    <td><input type="checkbox" name="mayor" id="mayor"></td>
-                </tr>
-                <tr>
-                    <td>Fecha</td>
-                    <td>
-                        <input type="text" name="dia" size="2" id="dia">
-                        <input type="text" name="mes" size="2"  id="mes">
-                        <input type="text" name="anio" size="4" id="year">
-                    </td>
-                </tr>
-                <tfoot>
+            tbody{
+                border: crimson 1px solid;
+                display: block;
+                border-collapse: separate;
+                border-spacing: 4px; 
+            }
+            th{
+                text-align:center;
+                font-size: 40px;
+            }
+            tfoot tr td{
+                text-align: center;
+            }
+        </style>
+        <script>
+            //3 Formas de llamar formularios
+            let formulario= document.getElementById('miFormulario');
+            let formulario2 = document.forms['miFormulario'];//array
+            let formulario3= document.getElementsByTagName('form')[0];//array
+            let formulario4= document.forms[0]
+            //¿Como seleccionar elementos?
+            //.element()
+            document.getElementById('nombre')//elemento con ese id
+            document.getElementsByTagName('input')//array con el elemento con esa etiqueta
+
+            function iniciar(){
+                document.getElementById('enviar').addEventListener("click",validar(),false);
+            }
+            function validaNombre(){
+                let elemento= document.getElementById('nombre')
+                return (elemento.value=="");
+            }
+            function validaTelefono(){
+                let elemento= document.getElementById('telefono')
+                return (!isNaN(elemento.value))
+            }
+            function validaFecha(){
+                let dia = document.getElementById('dia').value
+                let mes = document.getElementById('mes').value
+                let anio = document.getElementById('anio').value
+
+                let fecha = new Date(year,mes,dia);
+                return(!isNaN(fecha));
+            }
+
+            function validaCheck(){
+                return (document.getElementById('mayor').checked);
+            }
+            function validaSexo(){
+                elementos = document.getElementsByName("sexo");
+                for(let i=0;i<elementos.length;i++){
+                    if(elementos[i].checked)return elementos[i].value;
+                }
+            }
+            function validar(){
+                return(validaNombre()&&validaFecha()&&validaTelefono()&&validaSexo()&&validaCheck()&&confirm())
+            }
+        </script>
+    </head>
+    <body>
+        <form method="post" id="miFormulario"> <!-- action="procesar.php"-->
+            <table>
+                <thead>
+                        <th>Formulario</th>
+                </thead>
+                <tbody>
                     <tr>
+                        <td>Nombre</td>
+                        <td><input type="text" name="nombre" id="nombre"></td>
+                    </tr>
+                    <tr>
+                        <td>Telefono</td>
+                        <td><input type="text" name="telefono" id="telefono"></td>
+                    </tr>
+                    <tr>
+                        <td> Sexo</td>
+                        <td> <input type="radio" name="sexo" value="H" checked> Hombre
+                            <input type="radio" name="sexo" value="M"> Mujer </td>
+                    </tr>
+                    <tr>
+                        <td>Mayor de 18: </td>
+                        <td><input type="checkbox" name="mayor" id="mayor"></td>
+                    </tr>
+                    <tr>
+                        <td>Fecha</td>
                         <td>
-                            <input type="submit" onclick="iniciar()" value="Enviar" id="enviar">
-                            <input type="reset" value="Borrar Datos" id="borrar">
+                            <input type="text" name="dia" size="2" id="dia">
+                            <input type="text" name="mes" size="2"  id="mes">
+                            <input type="text" name="anio" size="4" id="year">
                         </td>
                     </tr>
-                </tfoot>
-            </tbody>
-        </table>
-    </form>
-</body>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <input type="submit" onclick="iniciar()" value="Enviar" id="enviar">
+                                <input type="reset" value="Borrar Datos" id="borrar">
+                            </td>
+                        </tr>
+                    </tfoot>
+                </tbody>
+            </table>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Formularios</title>
+        <style>
+            body{
+                justify-content: center;
+                display: flex;
+                align-items: center;
+            }
+            .textArea{
+                width: 300px;
+                height: 100px;
+            }
+        </style>
+        <script src="201SBP.js"></script>
+    </head>
+    <body>
+        <form onsubmit="validacion()"action="201SBP.html">
+                <fieldset>
+                    
+                        <legend>Datos Personales</legend>
+                        <div>
+                        Introduce tu nombre <input name='nombre' type='text' required>
+                        <br>
+                        <p>Mensaje</p>
+                        <textarea class="textArea" minlength="2" maxlength="500" placeholder="Maximo 500 Caracteres"></textarea>
+                        
+                    </div>
+                </fieldset>
+                <div align="center">
+                    <p>Elige un color</p>
+                    Rojo<input type="radio" name="color"/><br>
+                    Verde<input type="radio" name="color"/><br>
+                    Azul<input type="radio" name="color"/><br>
+                    Oscuro<input type="radio" name="color" checked/><br>
+                    <br>
+                    
+                    <p>Selecciona una asignatura
+                        <select>
+                            <option>DWES</option>
+                            <option>DWEC</option>
+                            <option>DAW</option>
+                            <option>DIW</option>
+                            <option>EMPRESA</option>
+                        </select>
+                    </p>
+
+                    <p>Selecciona los dias con disponibilidad</p>
+                    <input type="checkbox" name="dia" class="dia" checked>Lunes<br> 
+                    <input type="checkbox" name="dia" class="dia">Martes<br> 
+                    <input type="checkbox" name="dia" class="dia">Miercoles<br> 
+                    <input type="checkbox" name="dia" class="dia">Jueves<br> 
+                    <input type="checkbox" name="dia" class="dia">Viernes<br>
+                    
+                    <p>Selecciona el dia preferente 
+                        <select>
+                            <option>Lunes</option>
+                            <option>Martes</option>
+                            <option>Miercoles</option>
+                            <option>Jueves</option>
+                            <option>Viernes</option>
+                        </select>
+                    </p>
+
+                    <button type="submit" id="submit">Haz click para enviar Informacion</button>
+                    <button type="reset" id="reset">Comenzar a rellenar de nuevo</button>
+                    <button onclick="abrirGoogle()">Haz clic sobre mi</button>
+                </div>
+        </form>
+    </body>
+</html>
