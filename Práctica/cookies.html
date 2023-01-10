@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>COOKIES</title>
+        <script>
+            /*
+            //crear cookies con fecha de expiración
+            document.cookie="usuario = Juan Garcia;";
+            document.cookie="usuario = Juan García; expires=Mon,01 Jan 2024 00:00:01 GMT";
+            document.cookie="sexo = Por favor; expires=Mon,01 Jan 2024 00:00:01 GMT";
+            //leer una cookie
+            let miCookie = document.cookie;
+            alert(miCookie);
+            //modificar cookie
+            document.cookie="usuario = NOLOSE 72;";
+            miCookie = document.cookie;
+            alert(miCookie);
+            //borrar cookie
+            document.cookie="usuario=;expires=Mon,01 Jan 2022 00:00:01 GMT";
+            miCookie = document.cookie;
+            alert(miCookie);
+            */
+        </script>
+    </head>
+    <body>
+        <button type="button" id="verTodas">Ver todas las cookies</button>
+        <button type="button" id="crearCookie1">Crear cookie 1</button>
+        <button type="button" id="crearCookie2">Crear cookie 2</button>
+        <button type="button" id="borrarCookie1">Borrar cookie 1</button>
+        <button type="button" id="borrarCookie2">Borrar cookie 2</button>
+
+    </body>
+    <script>
+        document.getElementById("verTodas").addEventListener("click",()=>{alert(document.cookie)});
+        document.getElementById("crearCookie1").addEventListener("click",crearCookie);
+        document.getElementById("crearCookie2").addEventListener("click",crearCookie);
+        document.getElementById("borrarCookie1").addEventListener("click",borrarCookie);
+        document.getElementById("borrarCookie2").addEventListener("click",borrarCookie);
+
+        function crearCookie(e){
+            if(e.target.id=="crearCookie1")document.cookie="nombre=Juan;";
+            else if(e.target.id=="crearCookie2")document.cookie="apellido=García;";
+        }
+        function borrarCookie(e){
+            if(e.target.id=="borrarCookie1")document.cookie="nombre=;expires=01,Jan 2023;";
+            else if(e.target.id=="borrarCookie2")document.cookie="apellido=;expires=01,Jan 2023;";
+        }
+        function getCookie(nombre){
+            let name = nombre + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for(let i = 0; i <ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        function setCookie(nombre,valor){
+            document.cookie = nombre + "=" + valor + ";"
+        }
+    </script>
+</html>
