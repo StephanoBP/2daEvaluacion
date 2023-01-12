@@ -1,0 +1,55 @@
+<!--
+    //En primer lugar, comprobaremos si el navegador soporta Storage y mostraremos
+    un mensaje con el nombre de usuario si este se ha logueado en la página, diferenciando
+    si es su primera visita o ya ha entrado en más ocasiones. Utilizaremos una función para
+    llevar el control de las veces que el usuario ha accedido a la página. Crearemos dos funciones
+    para incrementar y decrementar el valor del contador anterior.
+    Finalmente crearemos otra función para hacer logout y restablecer los valores anteriores.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            /*
+            localStorage.setItem("nombre","Juan José") crear local Storage de la mejor forma
+            localStorage.nombre="Juan José" Otra forma de crearlo 
+            localStorage.getthem
+            localStorage.removeItem
+            localStorage.clear();
+            */
+            /*
+            localStorage.setItem("nombre","PEDRO");
+            localStorage.apellido="SANCHEZ";
+            alert(localStorage.getItem("nombre"));
+            alert(localStorage.apellido);
+            localStorage.removeItem("apellido");
+            alert(localStorage.getItem("nombre")+localStorage.getItem("apellido"));
+            localStorage.clear()
+            alert(localStorage.getItem("nombre")+localStorage.getItem("apellido"));
+            */
+            if (typeof(Storage)!=="undefined")alert("El navegador si soporta WebStorage");
+            else ("El navegador no soporta WebStorage");
+            if(localStorage.getItem("sesión")!=null){
+                alert("hola de nuevo "+localStorage.user+ " por " +localStorage.sesión+" vez");
+                localStorage.sesión++;
+            }else{
+                localStorage.setItem("sesión","1");
+                alert("Bienvenido/a a esta página");
+            }
+            function userNPass(){
+                localStorage.setItem("user",document.getElementsByName("user")[0].value);
+                localStorage.setItem("pass",document.getElementsByName("pass")[0].value);
+            }
+        </script>
+    </head>
+    <body>
+        <form action="PanelWebStorage.html" onsubmit="userNPass()" method="POST">
+            <label for="user">USUARIO:</label>
+            <input type="text" name="user" value=""><br>
+            <label for="pass">Contraseña</label>
+            <input type="password" name="pass" value=""><br>
+            <input type="submit" name="submit" value="Entrar">
+        </form>
+    </body>
+</html>

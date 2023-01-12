@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>PANEL</title>
+        <script>
+            function logout(){
+                localStorage.removeItem("user");
+            }
+        </script>
+    </head>
+    <body>
+        <form action="WebStorage.html" onsubmit="logout()" method="POST">
+            <input 
+            <input type="number" name="contador" value="">
+            <input type="button" onclick= "javascript:localStorage.clear()" name="clear" value="Logout">
+            <input type="button" onclick="javascript:localStorage.sesión++;"name="aumentarCont" value="Aumentar Contador">
+            <input type="button" onclick="javascript:localStorage.sesión--;"name="disminCont" value="Disminuir Contador">
+        </form>
+    </body>
+</html>

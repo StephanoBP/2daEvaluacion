@@ -59,7 +59,7 @@
         document.getElementById("crearCookie").addEventListener("click",crearCookie);
         document.getElementById("modificarCookie").addEventListener("click",modificarCookie);
         document.getElementById("leerCookie").addEventListener("click",leerCookie);
-        document.getElementById("borrarCookie").addEventListener("click",borrarCookie);
+        document.getElementById("borrarCookie").addEventListener("click",borrarCookie); 
         
         function verTodas(){
             alert(document.cookie);
@@ -91,7 +91,7 @@
         }
 
         function crearCookie(){
-            let nombre = prompt("Dame el nombre de la cookie que quieras crear");
+            let nombre = prompt("Dame el nombre de la cookie que quieras crear");//prompt
             let valor = prompt("Dame el valor que le quieres dar a la cookie");
             let fecha = prompt("Dame los días de expiración que le quieres dar a la cookie");
             let hoy = new Date();
@@ -101,7 +101,7 @@
         }
 
         function getCookie(nombre){
-            cookies=document.cookie.split(";"); //creo un array de las cookies separandolas por el ';'
+            let cookies=document.cookie.split(";"); //creo un array de las cookies separandolas por el ';'
             for(let i=0;i<cookies.length;i++){ //recorro el array creado
                 //con el método includes(que devuelve true si existe el parámetro dado) y después con el método replace devuelvo el valor sin el nombre
                 if(cookies[i].includes(nombre))return cookies[i].replace(nombre+"=","");
