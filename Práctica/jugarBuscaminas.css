@@ -13,10 +13,8 @@ td{
     width: 70px;
     height: 70px;
     font-size: 25px;
+    background-color: seashell;
 }
 .noVisitado{
     background-color: grey;
-}
-.visitado{
-    background-color: seashell;
 }
