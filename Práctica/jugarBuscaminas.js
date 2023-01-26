@@ -9,6 +9,7 @@ function generarTableroJS(){ //esta función genera el tablero con todas sus var
     crearMatriz(); //llamo a la función crearMatriz
     console.log(tablero); 
     setInterval(comprobarGanador,1000); //pongo un intervalo al método comprobarGanador de 1 segundo para que al instante que ganes te lo muestre por pantalla.
+    setInterval(guardarLocal,1000);
 }
 
 function dibujarTableroHTML(){ //esta función dibuja el tablero por HTML
@@ -183,4 +184,9 @@ function comprobarGanador(){ //esta función determina si has ganado si has pues
             document.getElementById("banderas").innerText="Banderas restantes: ?"; //pongo el texto de las banderas como al principio
         }
     }
+}
+function guardarLocal(){
+    localStorage.setItem("tamaño",tamaño);
+    localStorage.setItem("bombas",bombas);
+    localStorage.setItem("tablero",tablero);
 }
