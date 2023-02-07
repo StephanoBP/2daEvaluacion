@@ -18,8 +18,7 @@ function consumirPromesa(){
         promesa.then(
         function(val){
             h2.insertAdjacentHTML("beforeend",contador +") Dentro de then.Asincronía terminada<br/>")});
-            h2.insertAdjacentHTML("beforeend",contador+") Código después del then.Sincronía terminada<br/>");
-        
+            h2.insertAdjacentHTML("beforeend",contador+") Código después del then.Sincronía terminada<br/>");   
     //let promesa= new Promise(promesa());
     //promesa.then(pintar(cont+": then"));
     //pintar(cont+" Después del then");
