@@ -2,10 +2,13 @@
 <head>
     <style>
         table{
-            border-color: black;
-           
-            border: 2px  black solid;
-            
+            text-align: center;
+            border: 5px  purple solid;
+            padding: 10px;
+            font-size: 20px;
+        }
+        td{
+            padding: 10px;
         }
         #jornada1{
             background-color: slategrey;
@@ -33,7 +36,7 @@
             background-color: wheat;
         }
         #jornada9{
-            background-color: sslategrey;
+            background-color: slategrey;
         }
         #jornada10{
             background-color: wheat;
@@ -53,18 +56,17 @@
 
 </head>
 <body>
-    <h1>La Liga</h1>
+    <h1>LA LIGA</h1>
     <table id="jornadas">
     
     </table>
-    <button onclick="pintarJornada()">Elegir jornada para ver quiniela</button>
-    
-    
+    <br><br>
     <table id="quiniela"></table>
-    
-
+    <br><br>
+    <button onclick="pintarJornada()">Pedir Jornada</button>
     <script>
         let todasLasJornadas;
+        //equipos
         let arrayEquipos=[
             'Recreativo',
             'Atletico',
@@ -79,14 +81,12 @@
             'Internacional',
             'Adarve',
         ];
-       let local = -1;
+
+       let local = -1
        let  visitante = -1;
-
        function calcularLigaNumEquiposPar(numEquipos){
-        
         let numJornadas= numEquipos-1;
-        let numPartidosPor= numEquipos/2;
-
+        let numPartidosPar= numEquipos/2;
         let rondas=[
             [[],[],[],[],[],[],],
             [[],[],[],[],[],[],],
@@ -101,9 +101,9 @@
             [[],[],[],[],[],[],],
             [[],[],[],[],[],[],],
             
-        ];
+        ]; 
         for(let i=0 , k=0;i<numJornadas;i++ ){
-            for(let j=0;j<numPartidosPor;j++){
+            for(let j=0;j<numPartidosPar;j++){
                 rondas[i][j][0]=arrayEquipos[k];
                 k++;
                 if(k==numJornadas) k=0;
@@ -111,19 +111,19 @@
         }
         for (let  i = 0; i < numJornadas; i ++){
            if (i % 2 == 0){
-               rondas[i][0][1]=arrayEquipos[ numEquipos - 1]
+               rondas[i][0][1]=arrayEquipos[numEquipos-1]
            }
            else
            {
                rondas[i][0][1] = rondas[i][0][0];
-               rondas[i][0][0]= arrayEquipos[ numEquipos - 1]
+               rondas[i][0][0]= arrayEquipos[numEquipos-1]
            }
        }
        let equipoMasAlto = numEquipos - 1;
        let equipoImparMasAlto = equipoMasAlto - 1; 
 
        for (let  i = 0, k = equipoImparMasAlto; i < numJornadas; i ++){
-           for (let j = 1; j < numPartidosPor; j ++){
+           for (let j = 1; j < numPartidosPar; j ++){
                rondas[i][j][1] = arrayEquipos [k];
                k --;
                if (k == -1)
@@ -132,77 +132,33 @@
        }
        return rondas;
        }
-       function calcularLigaNumEquiposImpar(numEquipos){
-        let numJornadas=numEquipos
-        let numPartidosPor=numEquipos / 2;
-        let rondas=[
-            [[],[],[],[],[],[],],
-            [[],[],[],[],[],[],],
-            [[],[],[],[],[],[],],
-            [[],[],[],[],[],[],],
-            [[],[],[],[],[],[],],
-            [[],[],[],[],[],[],],
-            [[],[],[],[],[],[],],
-            [[],[],[],[],[],[],],
-            [[],[],[],[],[],[],],
-            [[],[],[],[],[],[],],
-            [[],[],[],[],[],[],],
-            [[],[],[],[],[],[],],
-        ];
-        
-
-        for (let i = 0, k = 0; i < numJornadas; i ++){
-           for (let j = -1; j < numPartidosPor; j ++){
-               if (j >= 0){
-                   
-                   rondas[i][j][0] = arrayEquipos[k] ;
-               }
-               
-               k ++;
-               if (k == numJornadas)
-                   k = 0;
-           }
-       }
-       let equipoMasAlto = numEquipos - 1;
-
-       for (let  i = 0, k = equipoMasAlto; i < numJornadas; i ++){
-           for (let j = 0; j < numPartidosPor; j ++){
-               rondas[i][j][1] = arrayEquipos[k];
-               k --;
-               if (k == -1)
-                   k = equipoMasAlto;
-           }
-       }
-       return rondas;
-       }
-
        function calcularLiga(numEquipos){
-        if (numEquipos % 2 == 0) return calcularLigaNumEquiposPar(numEquipos);
-        else return calcularLigaNumEquiposImpar(numEquipos);
+            if (numEquipos % 2 == 0)
+            return calcularLigaNumEquiposPar(numEquipos);
+        else
+            return calcularLigaNumEquiposImpar(numEquipos);
        }
+       todasLasJornadas= calcularLiga(arrayEquipos.length);
         let pintarJornadas="";
-        
         for(let i=0;i<todasLasJornadas.length-1;i++){
             pintarJornadas+="<tr id='jornada"+(i+1)+"'>"
                 pintarJornadas+="<td id='jornada'> Jornada "+(i+1)+"</td>"
             for(let j=0;j<todasLasJornadas[i].length;j++){
                 pintarJornadas+="<td>"+todasLasJornadas[i][j][0]+' vs '+todasLasJornadas[i][j][1]+'</td>';
-
-
             }
             pintarJornadas+="</tr'>";
         }
         document.getElementById("jornadas").innerHTML=pintarJornadas;
-        pintarJornadaDef();
+        pintarJornadaPorDefecto();
         
         //quiniela
-        function pintarJornadaDef(){
+        function pintarJornadaPorDefecto(){
             let pintarJornadaEspecifica="<tr>";
             let num=1
             pintarJornadaEspecifica+='<td> <b>Jornada '+num+'</b></td>'
             num--
             for(let i=0;i<todasLasJornadas[num].length;i++){
-                pintarJornadaEspecifica+="<tr> <td>"+todasLasJornadas[num][i][0]+'</td><td> vs</td><td> '+todasLasJornadas[num][i][1]+'</td><td>' +numeroAleatorio()+' </td></tr>'
+                pintarJornadaEspecifica+="<tr> <td>"+todasLasJornadas[num][i][0]+'</td><td> vs</td><td> '+todasLasJornadas[num][i][1]+'</td><td>' +random()+' </td></tr>'
             }
             pintarJornadaEspecifica+='</tr>'
             document.getElementById("quiniela").innerHTML=pintarJornadaEspecifica; 
@@ -212,25 +168,33 @@
         function pintarJornada(){
             let pintarJornadaEspecifica="<tr>";
             let num=0
-            do{
-                num=Number(prompt("Que jornada quieres"))
+                do{
+                    num=Number(prompt("Que jornada quieres"))
+
             }while(num>todasLasJornadas.length-1||num<1)
            
             pintarJornadaEspecifica+='<td><b>Jornada '+num+'</b></td>'
             num--
             for(let i=0;i<todasLasJornadas[num].length;i++){
-                pintarJornadaEspecifica+="<tr> <td>"+todasLasJornadas[num][i][0]+'</td><td> vs</td><td> '+todasLasJornadas[num][i][1]+'</td><td>' +numeroAleatorio()+' </td></tr>'
+                pintarJornadaEspecifica+="<tr> <td>"+todasLasJornadas[num][i][0]+'</td><td> vs</td><td> '+todasLasJornadas[num][i][1]+'</td><td>' +random()+' </td></tr>'
             }
             pintarJornadaEspecifica+='</tr>'
             document.getElementById("quiniela").innerHTML=pintarJornadaEspecifica; 
 
 
         }
-        function numeroAleatorio(){
-            let probabilidad= Number( Math.random()*101);
-            if(probabilidad<50)return 'x';
-            if(probabilidad>80)return '2';
-            else return '1';
+        function random(){
+            let probabilidad= Number( Math.random()*101)
+               if(probabilidad<50)return 'x'
+               if(probabilidad>80)return '2'
+               else return '1'
+
+            
+
         }
+
+
+
+        
     </script>
 </body>
