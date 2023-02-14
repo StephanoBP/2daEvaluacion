@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            window.addEventListener("load",function(){
+                class Teléfono {
+                    constructor (marca){
+                        this._marca = marca;
+                    }
+                    anuncio(){
+                        return "ha llegado el nuevo teléfono de "+this.marca;
+                    }
+                    get marca(){
+                        return this._marca;
+                    }
+                    set marca(mar){
+                        this._marca=mar;
+                    }
+                }
+            
+            class Modelo extends Teléfono {
+                constructor(marca,modelo) {
+                    super(marca);
+                    this._modelo=modelo;
+                }
+                anuncioCompleto(){
+                    return this.anuncio()+": el modelo "+ this._modelo;
+                }
+                get modelo(){
+                        return this._modelo;
+                    }
+                set modelo(mod){
+                    this._modelo=mod;
+                }
+            }
+            let miTeléfono = new Modelo ("Google","Pixel");
+            mensaje.innerHTML = miTeléfono.anuncioCompleto();    
+        },true);
+        </script>
+    </head>
+    <body>
+        <p id="mensaje"></p>
+    </body>
+</html>

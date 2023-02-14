@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            async function miFuncion(){
+                let miPromesa = new Promise((resolve,reject)=>{
+                    setTimeout(()=>resolve("He esperado 2 segundos"),2000)
+                });
+            
+                let resultado = await miPromesa; //Pausado
+                console.log(resultado);
+            }
+            miFuncion();
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

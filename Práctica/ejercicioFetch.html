@@ -13,7 +13,7 @@
             let url2=`https://pokeapi.co/api/v2/pokemon/10`;
             let id=0
             function crearTabla2(){
-                document.getElementById("título").innerHTML="<h1>Lista aleatoria de autores</h1>";
+                document.getElementById("título").innerHTML="<h1>Lista aleatoria de Pokemons</h1>";
                 fetch(url2)
                 .then(response => response.json())
                 .then(response => createNode2(response))
@@ -24,7 +24,7 @@
                 //para ir creando los elementos de la lista
                 fetch(url)
                 .then(response => response.json())
-                .then(response => createNode(response.sprites.back_shiny))
+                .then(response => createNode(response.results))
                 .catch(error=> console.log(error));
             }
             function createNode2(results){
@@ -44,23 +44,25 @@
                 }
             }
             function crearNumeroRandom(){
-                id
+                id=Math.random()*500;
             }
             function createNode(results){
                 let tabla=document.getElementById("tabla");
                 let tr="";
-                let td="";
+                let tdNombre="";
+                let tdImg="";
                 let img="";
                 for(let i=0;i<results.length;i++){
                     tr=document.createElement("tr");
                     //tr.innerHTML="<td>"+results[i].name.first+" "+results[i].name.last+"</td><td><img src='"+results[i].picture.large+"'></img></td>";
-                    td=document.createElement("td");
-                    //img=document.createElement("img").setAttribute("src",results[i].picture.large); //no me funciona esta parte del setAttribute
-                    img=document.createElement("td");
-                    td.innerHTML=results[i].name.first+" "+results[i].name.last;
-                    img.innerHTML="<img src='"+results[i].picture.large+"'></img>";
-                    tr.appendChild(td);
-                    tr.appendChild(img);
+                    tdNombre=document.createElement("td");
+                    tdImg=document.createElement("td");
+                    tdNombre.innerHTML=results[i].name.first+" "+results[i].name.last;
+                    img=document.createElement("img");//.innerHTML="<img src='"+results[i].picture.large+"'></img>";
+                    img.setAttribute("src",results[i].picture.large);
+                    tr.appendChild(tdNombre);
+                    tr.appendChild(tdImg);
+                    tdImg.appendChild(img);
                     tabla.appendChild(tr);
                 }
             }
@@ -86,7 +88,7 @@
             </tbody>
         </table>
         <script>
-            crearTabla2();
+            crearTabla();
         </script>
     </body>
 </html>
