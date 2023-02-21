@@ -11,10 +11,10 @@
                     anuncio(){
                         return "ha llegado el nuevo teléfono de "+this.marca;
                     }
-                    get marca(){
+                    getMarca(){
                         return this._marca;
                     }
-                    set marca(mar){
+                    setMarca(mar){
                         this._marca=mar;
                     }
                 }
@@ -27,10 +27,10 @@
                 anuncioCompleto(){
                     return this.anuncio()+": el modelo "+ this._modelo;
                 }
-                get modelo(){
+                getModelo(){
                         return this._modelo;
-                    }
-                set modelo(mod){
+                }
+                setModelo(mod){
                     this._modelo=mod;
                 }
             }

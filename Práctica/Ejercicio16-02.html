@@ -5,38 +5,139 @@
         <title>Pelea Pokemon</title>
         <script> 
             class Pokemon{
-                constructor (nombre,daño,defensa){
-                    this._nombre=nombre;
-                        this._daño = daño;
-                        this._defensa = defensa;
-                    }
-                get nombre(){
-                return this._nombre;
+                constructor (equipoColor,daño,defensa){
+                    //this._nombre=nombre;
+                    this._daño = daño;
+                    this._defensa = defensa;
+                    this._equipoColor = equipoColor;
                 }
-                set nombre(nombre){
-                    this._nombre=nombre;
+                // get nombre(){
+                // return this._nombre;
+                // }
+                // set nombre(nombre){
+                //     this._nombre=nombre;
+                // }
+                getEquipoColor(){
+                return this._equipoColor;
                 }
-                get daño(){
+                setEquipoColor(equipoColor){
+                 this._equipoColor=equipoColor;
+                }
+                getDaño(){
                     return this._daño;
                 }
-                set daño(daño){
+                setDaño(daño){
                     this._daño=daño;
                 }
-                get defensa(){
+                getDefensa(){
                     return this._defensa;
                 }
-                set defensa(defensa){
+                setDefensa(defensa){
                     this._defensa=defensa;
                 }
+                total(){
+                    let total=Number(Number(this._daño)+Number(this._defensa));
+                    return total;
+                }
+                muerte() {
+                   this._daño=0;
+                   this._defensa=0; 
+                }
             }
-            campoDeBatalla = new Array(Number(tamaño))
-            for (let i = 0;i<tablero.length; i++) {
-                tablero[i]=new Array(Number(tamaño));
+            function menu(){
+                let equipoRojo,equipoAzul,equipoFinal;
+                equipoAzul = crearEquipos();
+                equipoRojo = crearEquipos();
+                equipoAzul = crearPokemons(equipoAzul,"Azul");
+                console.log(equipoAzul);
+                equipoRojo = crearPokemons(equipoRojo,"Rojo");
+                console.log(equipoRojo);
+                equipoFinal = combate(equipoAzul,equipoRojo);
+                console.log(equipoFinal);
+                conteo(equipoFinal);
             }
-            
+            function combate(equipoAzul,equipoRojo){
+                if (equipoRojo.length>equipoAzul.length){
+                    if(equipoRojo[0].length>equipoAzul[0].length){
+                        return lucha(equipoRojo.length,equipoRojo[0].length,equipoAzul,equipoRojo);
+                    }else{
+                        return lucha(equipoRojo.length,equipoAzul[0].length,equipoAzul,equipoRojo);
+                    }
+                }else{
+                    if(equipoRojo[0].length>equipoAzul[0].length){
+                        return lucha(equipoAzul.length,equipoRojo[0].length,equipoAzul,equipoRojo);
+                    }else{
+                        return lucha(equipoAzul.length,equipoAzul[0].length,equipoAzul,equipoRojo);
+                    }
+                }
+            }
+            function lucha(fila,columna,equipoAzul,equipoRojo){
+                let equipoFinal=crearEquipos(fila,columna);
+                for(let i=0;i<fila;i++){
+                    for (let j=0; j<columna;j++){
+                        if(equipoRojo[i][j].total() > equipoAzul[i][j].total()){ //|| equipo[i][j]==undefined) 
+                            equipoAzul[i][j].muerte();
+                            equipoFinal[i][j]=equipoRojo[i][j];
+                        }else{
+                            equipoRojo[i][j].muerte();
+                            equipoFinal[i][j]=equipoAzul[i][j];
+                        }
+                    } 
+                }
+                return equipoFinal;
+            }
+            function conteo(equipoFinal){
+                let conteoRojo=0,conteoAzul=0;
+                for(let i=0;i<equipoFinal.length;i++){
+                    for(let j=0; j<equipoFinal[i].length;j++){
+                        if(equipoFinal[i][j].getEquipoColor()=="Azul"){
+                            conteoAzul=Number(conteoAzul+equipoFinal[i][j].total())
+                            console.log(equipoFinal[i][j].total());
+                        }
+                        else conteoRojo=Number(equipoFinal[i][j].total()+conteoRojo);
+                    }
+                }
+                console.log(conteoAzul);
+                console.log(conteoRojo);
+                if(conteoAzul>conteoRojo)mensaje.innerHTML="Ha ganado el equipo Azul, con un pc Final de : "+conteoAzul;
+                else mensaje.innerHTML="Ha ganado el equipo Rojo, con un pc Final de : "+conteoRojo;
+            }
+            function crearEquipos(fila = 0,columna = 0){
+                let tamañoy=numeroAleatorio();
+                let tamañox=numeroAleatorio()
+                if(fila==0 && columna==0){
+                    equipo = new Array(Number(3))
+                    for (let i = 0;i<equipo.length; i++) {
+                        equipo[i]=new Array(Number(3));
+                    }
+                }else{
+                    equipo = new Array(Number(fila))
+                    for (let i = 0;i<equipo.length; i++) {
+                        equipo[i]=new Array(Number(columna));
+                    }
+                }
+                return equipo;
+            }
+            function crearPokemons(equipo,color){
+                for (let i = 0;i<equipo.length; i++) {
+                    for (let j = 0;j<equipo[i].length; j++){
+                        equipo[i][j]=new Pokemon(color,estadisticaAleatoria(),estadisticaAleatoria())
+                    }
+                }
+                return equipo;
+            }
+            function estadisticaAleatoria(){
+                let estadística = Math.random()*100+1;
+                return estadística.toFixed();
+            }
+            function numeroAleatorio(){
+                let tamaño = Math.random()*5+1;
+                return tamaño.toFixed();
+            }
     </script>
     </head>
     <body>
-
+        <h1 id="mensaje"></h1>
+        <script>menu()</script>
     </body>
 </html>
