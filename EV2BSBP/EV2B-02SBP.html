@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        class Animal{
+            constructor (nombre,edad,patas,especie,estado){
+                this._nombre = nombre;
+                this._edad = edad;
+                this._patas = patas;
+                this._especie = especie;
+                this._estado = estado;
+            }
+            introduce(){
+                return "Hola, mi nombre es "+this._nombre+" y tengo "+this._edad+" años";
+            }
+
+        }
+        class Gato extends Animal {
+            constructor(nombre,edad,estado) {
+                super(nombre,edad,4,"felinos",estado);
+                this._especie="felinos";
+                this._patas=4;
+            }
+            introduce(){
+                return super.introduce()+"  ¡Miau, miau!";
+            }
+        }
+        class Perro extends Animal {
+            constructor(nombre,edad,estado,dueño) {
+                super(nombre,edad,4,"canidos",estado);
+                this._especie="canidos";
+                this._patas=4;
+                this._dueño = dueño;
+            }
+            introduce(){
+                return super.introduce();
+            }
+            saludaDueño(){
+                return "Hola " + this._dueño;
+            }
+        }
+        let miGato = new Gato ("Ja",24,"vivo");
+        console.log(miGato.introduce());  
+        let miPerro = new Perro("Mon",5,"muerto","Manuel");
+        console.log(miPerro.introduce());  
+        console.log(miPerro.saludaDueño());  
+    </script>
+</head>
+
+<body>
+    <h1 id="mensaje"></h1>
+</body>
+
+</html>
+
+
+<!--
+    Define una clase Animal  con las propiedades nombre, edad, patas, especie y estado.
+Y el método introduce() que devuelva “Hola, mi nombre es [nombre] y tengo [edad] años.”
+Define ahora las siguientes clases que heredan de Animal. 
+    I. Gato. La función constructora para Gato debe aceptar los mismos 3 argumentos que tiburón: nombre, edad, estado. Los gatos pertenecen a 
+    la especie “felinos”. Además, su método introduce() debe ser idéntico al original, excepto que debe haber exactamente 2 espacios y las 
+    palabras "¡Miau, miau!" después de la frase. 
+Observa los DOS espacios - es importante
+    II. Perro. El constructor de la clase Perro debe aceptar 4 argumentos en el orden especificado: nombre, edad, estado, dueño, donde dueño 
+    ( que es un string) es el nombre del propietario del perro. Además, los perros, que pertenecen a la especie canidos,  tienen un método 
+    introduce() como cualquier otro animal, pero tienen su propio método llamado saludaDueño() que no acepta argumentos y devuelve "Hola 
+    [nombre del dueño]”
+-->

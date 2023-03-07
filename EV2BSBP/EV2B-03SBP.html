@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" defer>
+        posicionx="0";
+        document.addEventListener("keydown", function(e) {
+            switch (e.keyCode) { // aquí verificamos el código de la tecla presionada
+                case 37: // tecla izquierda 
+                    moverCaja(-10,0); // desplazamiento hacia la izquierda
+                    console.log("he pulsado la tecla izquierda");
+                    break;
+                case 39: // tecla derecha 
+                    moverCaja(10,0); // desplazamiento hacia la derecha
+                    console.log("he pulsado la tecla derecha");
+                    break;
+                case 38: // tecla arriba
+                moverCaja(0,-1); // desplazamiento hacia arriba
+                console.log("he pulsado la tecla arriba");
+                break;
+                case 40: // no se cual es la tecla de abajo 
+                    moverCaja(0,10); // desplazamiento hacia abajo
+                    break;
+            }
+        });
+        document.addEventListener("keyup", function(e) {
+            moverCaja(0,0); // parar al soltar la tecla
+        });
+        function moverCaja(x,y){
+            let div = document.querySelector("#idCaja");
+            div.style.left = posicionx + x + "px";
+            posicionx = posicionx+x;
+        }
+    </script>
+    <style>
+        body{
+            font-family: 'Roboto Slab', serif;
+            color: #f0f0f0;
+            background-color: #121212;
+        }
+        #idCaja {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            color: red;
+            top: 0px;
+            left: 0px;
+            border-style: solid;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <div id="idCaja" name='caja'>
+    </div>
+</body>
+
+</html>
+<!--
+    Realiza un script que permita mover una caja dentro de la ventana del navegador con las flechas del teclado 
+    Utiliza el siguiente código:
+-->

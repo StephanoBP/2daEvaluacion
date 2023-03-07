@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        //he creado una fecha para compararla con la  con la salida de la etapa mas 2 minutos para saber cada cuanto sale cada participante y he puesto una promesa que acaba a los 30 minutos de empezar la carrera para saber que se ha acabado.
+            function competicion(){
+            let fecha = new Date();
+            let carrera = crearCarrera();
+            promesa();
+            setInterval(salidaParticipante(carrera,fecha),1000*60);
+            
+        }
+        function crearCarrera(){
+                let carrera = new Array(Number(15))
+                for (let i = 0;i<carrera.length; i++) {
+                    carrera[i]=i;
+                }
+                return carrera;
+            }
+        function salidaParticipante(carrera,fecha){
+            for (let i = 1;i<=carrera.length; i++) {
+                if(salidaEtapa(i,fecha)==true)mensaje.innerHTML+="<br>Participante "+i+". Salga ¡Ya!";
+            }
+        }
+        function salidaEtapa(dorsal,fecha){
+            let fechaSalidaParticipante = new Date();
+            if(fechaSalidaParticipante.getMinutes() == fecha.getMinutes()+(dorsal*2))return true;
+            else return false;
+            
+        }
+        async function promesa(){
+            let miPromesa = new Promise((resolve,reject)=>{
+                setTimeout(()=>resolve(mensaje.innerHTML+="<br>Ya salieron todos los participantes"),1000*30*60);
+            });
+    
+            let resultado = await miPromesa;
+            console.log(resultado);
+        }
+    
+
+        
+        
+    </script>
+</head>
+
+<body>
+    <h1 id="mensaje">
+        EMPIEZA LA CARRERA
+
+    </h1>
+    <script>competicion()</script>
+</body>
+
+</html>
+<!--
+    En una prueba contrarreloj, los 15 ciclistas participantes deben salir con una cadencia de minutos en función del dorsal que llevan 
+    (el dorsal 1 saldrá dos minutos después de la hora de salida, el dorsal 2, cuatro minutos después de la hora de salida… y así sucesivamente
+    . En el display de su moderna bicicleta, el participante debe ver un mensaje para poder salir *. Crea la aplicación salidaEtapa que debe 
+    instalar cada ciclista.
+-->
