@@ -1,6 +1,7 @@
 
 let tablero,tamaño,bombas,ganador; //creo las variables globales que voy a usar durante todo el js
-
+let contador = 0;
+setInterval(iniciarContador,1000);
 function generarTableroJS(){ //esta función genera el tablero con todas sus variables arrays etc
     ganador=0; //la variable ganador la pongo en 0 para que se sepa que no ha ganado todavía
     tamaño = tamaño=document.getElementById("tamaño").value; //le añado el tamaño que ha pedido el usuario
@@ -10,6 +11,7 @@ function generarTableroJS(){ //esta función genera el tablero con todas sus var
     console.log(tablero); 
     setInterval(comprobarGanador,1000); //pongo un intervalo al método comprobarGanador de 1 segundo para que al instante que ganes te lo muestre por pantalla.
     setInterval(guardarLocal,1000);
+    actualizarContador();
 }
 
 function dibujarTableroHTML(){ //esta función dibuja el tablero por HTML
@@ -67,55 +69,48 @@ function mostrarTodo(){ //esta función muestra todos los valores de la matriz y
         }
     }
 }
-
 function limpiarZona(x,y){ //esta función limpia la zona de ceros continuos y sus celdas adyacentes
-    let maxj=-50; //creo una variable para que sea la máxima longitud del iterador j
-    let minj=-50; //creo una variable para que sea la mínima longitud del iterador j
-    for(let i=Number(x),contx=-1,salir=0;i<tablero.length;i=contx+i){ //creo un bucle para recorrer las filas dandole al iterador i la variable "x" y creo 2 variables el contador de x y salir para terminar el bucle, que no termina hasta que i sea menor que el tamaño del tablero y la variable i se actualice sumando el contador de x más i
-        if(i==0)contx=1; //si i es igual a 0 el contador de x es 1 y abro otro bucle para recorrer las columnas
-        for (let j=Number(y),conty=-1;j<tablero.length;j=conty+j){ //el iterador j es la variable "y" y creo un contador de y al que le asigno el valor -1, el bucle acaba al llegar al ser mayor o igual al tamaño de las columnas y se va añadiendo al iterador j el contador y sumando la j.
-            if(j==0){ //compruebo que el iterador j sea 0 y si es así la mínima longitud de j es 0 y el contador de y se vuelve 1
-                minj=j;
-                conty=1;
-            }
-            if(tablero[i][j]==0){ // compruebo que la posición i y j del tablero sea 0 y si es así pongo que la celda tenga la clase visitada
-                document.getElementById(i+""+j).setAttribute("class","visitado");
-                if(i<tablero.length-1&&j<tablero.length-1){//compruebo los márgenes de abajo y la derecha (tamaño fila, tamaño columna) y después voy asignando la calse visitado al siguiente valor de la i y la j y enseñando al usuario sus respectivos valores
-                    document.getElementById(Number(i+1)+""+Number(j+1)).setAttribute("class","visitado");
-                    if(tablero[i+1][j+1]!=0)document.getElementById(Number(i+1)+""+Number(j+1)).innerText=tablero[i+1][j+1];
-                }//compruebo los márgenes de arriba y la izquierda (0,0) y después voy asignando la calse visitado al anterior valor de la i y la j y enseñando al usuario sus respectivos valores
-                if(i>0&&j>0){
-                    document.getElementById(Number(i-1)+""+Number(j-1)).setAttribute("class","visitado");
-                    if(tablero[i-1][j-1]!=0)document.getElementById(Number(i-1)+""+Number(j-1)).innerText=tablero[i-1][j-1];
-                }//compruebo los márgenes de arriba y la derecha (0,tamaño columna) y después voy asignando la calse visitado al anterior y el siguiente valor de la i y la j y enseñando al usuario sus respectivos valores
-                if(i>0&&j<tablero.length-1){
-                    document.getElementById(Number(i-1)+""+Number(j+1)).setAttribute("class","visitado");
-                    if(tablero[i-1][j+1]!=0)document.getElementById(Number(i-1)+""+Number(j+1)).innerText=tablero[i-1][j+1];
-                }//compruebo los márgenes de abajo y la izquierda (tamaño fila,0) y después voy asignando la calse visitado al anterior y el siguiente valor de la i y la j y enseñando al usuario sus respectivos valores
-                if(i<tablero.length-1&&j>0){
-                    document.getElementById(Number(i+1)+""+Number(j-1)).setAttribute("class","visitado");
-                    if(tablero[i+1][j-1]!=0)document.getElementById(Number(i+1)+""+Number(j-1)).innerText=tablero[i+1][j-1];
+        let maxj=-50; //creo una variable para que sea la máxima longitud del iterador j
+        let minj=-50; //creo una variable para que sea la mínima longitud del iterador j
+        for(let i=Number(x),contx=-1,salir=0;i<tablero.length;i=contx+i){ //creo un bucle para recorrer las filas dandole al iterador i la variable "x" y creo 2 variables el contador de x y salir para terminar el bucle, que no termina hasta que i sea menor que el tamaño del tablero y la variable i se actualice sumando el contador de x más i
+            if(i==0)contx=1; //si i es igual a 0 el contador de x es 1 y abro otro bucle para recorrer las columnas
+            for (let j=Number(y),conty=-1;j<tablero.length;j=conty+j){ //el iterador j es la variable "y" y creo un contador de y al que le asigno el valor -1, el bucle acaba al llegar al ser mayor o igual al tamaño de las columnas y se va añadiendo al iterador j el contador y sumando la j.
+                if(j==0){ //compruebo que el iterador j sea 0 y si es así la mínima longitud de j es 0 y el contador de y se vuelve 1
+                    minj=j;
+                    conty=1;
                 }
-                salir++;//le añado 1 a la variable salir para demostrar que tiene que seguir la función
-            }else if(conty==1){ //si el contador de y es 1 le añado al máximo valor de j el actual valor del iterador j y salgo del bucle
-                maxj=j;
-                j=tablero.length;
-            }else { //si el contador de y es -1 le añado al mínimo contador de j el valor actual del iterador j y hago que el contador y sea 1
-                minj=j;
-                conty=1;
+                if(tablero[i][j]==0){ // compruebo que la posición i y j del tablero sea 0 y si es así pongo que la celda tenga la clase visitada
+                    document.getElementById(i+""+j).setAttribute("class","visitado");
+                    if(i<tablero.length-1&&j<tablero.length-1){//compruebo los márgenes de abajo y la derecha (tamaño fila, tamaño columna) y después voy asignando la calse visitado al siguiente valor de la i y la j y enseñando al usuario sus respectivos valores
+                        document.getElementById(Number(i+1)+""+Number(j+1)).setAttribute("class","visitado");
+                        if(tablero[i+1][j+1]!=0)document.getElementById(Number(i+1)+""+Number(j+1)).innerText=tablero[i+1][j+1];
+                    }//compruebo los márgenes de arriba y la izquierda (0,0) y después voy asignando la calse visitado al anterior valor de la i y la j y enseñando al usuario sus respectivos valores
+                    if(i>0&&j>0){
+                        document.getElementById(Number(i-1)+""+Number(j-1)).setAttribute("class","visitado");
+                        if(tablero[i-1][j-1]!=0)document.getElementById(Number(i-1)+""+Number(j-1)).innerText=tablero[i-1][j-1];
+                    }//compruebo los márgenes de arriba y la derecha (0,tamaño columna) y después voy asignando la calse visitado al anterior y el siguiente valor de la i y la j y enseñando al usuario sus respectivos valores
+                    if(i>0&&j<tablero.length-1){
+                        document.getElementById(Number(i-1)+""+Number(j+1)).setAttribute("class","visitado");
+                        if(tablero[i-1][j+1]!=0)document.getElementById(Number(i-1)+""+Number(j+1)).innerText=tablero[i-1][j+1];
+                    }//compruebo los márgenes de abajo y la izquierda (tamaño fila,0) y después voy asignando la calse visitado al anterior y el siguiente valor de la i y la j y enseñando al usuario sus respectivos valores
+                    if(i<tablero.length-1&&j>0){
+                        document.getElementById(Number(i+1)+""+Number(j-1)).setAttribute("class","visitado");
+                        if(tablero[i+1][j-1]!=0)document.getElementById(Number(i+1)+""+Number(j-1)).innerText=tablero[i+1][j-1];
+                    }
+                    salir++;//le añado 1 a la variable salir para demostrar que tiene que seguir la función
+                }else if(conty==1){ //si el contador de y es 1 le añado al máximo valor de j el actual valor del iterador j y salgo del bucle
+                    maxj=j;
+                    j=tablero.length;
+                }else { //si el contador de y es -1 le añado al mínimo contador de j el valor actual del iterador j y hago que el contador y sea 1
+                    minj=j;
+                    conty=1;
+                }
             }
+            if(salir==0&&contx==1)i=tablero.length; //si el valor del contador de x es 1 salir de la función
+            else if(salir==0)contx=1; //si no si salir es igual a 0 darle al contador x el valor 1
+            salir=0; //poner la salida otra vez a 0
         }
-        if(salir==0&&maxj!=-50&&tablero[i][maxj]==0){ //si no hay que salir y el valor máx de j no es igual a 0 se llama otra vez a la función con la i y el max j
-            limpiarZona(i,maxj);
-        }
-        if(salir==0&&minj!=-50&&tablero[i][minj]==0){ //si no hay que salir y el valor min de j no es igual a 0 se llama otra vez a la función con la i y el min j
-            limpiarZona(i,minj);
-        }
-        
-        if(salir==0&&contx==1)i=tablero.length; //si el valor del contador de x es 1 salir de la función
-        else if(salir==0)contx=1; //si no si salir es igual a 0 darle al contador x el valor 1
-        salir=0; //poner la salida otra vez a 0
-    }
+    
 }
 
 function crearMatriz(){ //en este método creo las filas y las columnas del array con el tamaño dado y les doy el valor 0
@@ -185,8 +180,16 @@ function comprobarGanador(){ //esta función determina si has ganado si has pues
         }
     }
 }
-function guardarLocal(){
+function guardarLocal(){//guardo en localStorage todo lo usado para esta partida
     localStorage.setItem("tamaño",tamaño);
     localStorage.setItem("bombas",bombas);
     localStorage.setItem("tablero",tablero);
+    localStorage.setItem("tiempo",contador);
+}
+function iniciarContador(){ //creo un contador para saber el tiempo transcurrido
+    contador++;
+    document.getElementById("contador").innerHTML=contador;
+}
+function actualizarContador(){ //actualizo el contador
+    contador=0;
 }
